@@ -1,0 +1,54 @@
+#!/bin/bash
+
+echo "Enter value for n: "
+read n
+
+sum=0
+i=1
+
+while [ $i -le $n ]
+do
+  sum=$((sum+i))
+  i=$((i+2))
+done
+
+echo "Sum is $sum"
+
+
+
+echo "enter the filename:"
+read filename
+if [ ! -e "$filename" ];
+  then 
+  echo "file not there"
+  exit 1
+ fi
+ if [ ! -x "$filename" ]; then
+  chmod +x "$filename"
+  echo "permission added"
+  else 
+  echo "already permission added"
+  fi
+
+
+echo "List of executable files in the present working directory:"
+for file in *
+do
+  if [ -x "$file" ]; then
+    echo "$file"
+  fi
+done
+
+pattern="$1"
+echo "Checking files in the present working directory for pattern: $pattern"
+
+for file in *
+do
+  if [ -f "$file" ]; then
+    if grep -q "$pattern" "$file"; then
+      echo "$file: pattern available"
+    else
+      echo "$file: pattern not available"
+    fi
+  fi
+done

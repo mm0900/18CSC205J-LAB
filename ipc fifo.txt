@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <string.h>
+
+#define FIFO_NAME "/tmp/myfifo"
+#define BUFFER_SIZE 1024
+
+int main()
+{
+    int fd, num, child;
+    char buffer[BUFFER_SIZE];
+
+    /* Create the FIFO if it does not exist */
+    mkfifo(FIFO_NAME, 0666);
+
+    /* Fork a child process */
+    child = fork();
+
+    if (child == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+
+    if (child == 0) {
+        /* Child process: read from the FIFO */
+        fd = open(FIFO_NAME, O_RDONLY);
+        read(fd, buffer, BUFFER_SIZE);
+        printf("Child received: %s\n", buffer);
+        close(fd);
+    } else {
+        /* Parent process: write to the FIFO */
+        fd = open(FIFO_NAME, O_WRONLY);
+        printf("Enter a message to send to the child: ");
+        fgets(buffer, BUFFER_SIZE, stdin);
+        write(fd, buffer, strlen(buffer) + 1);
+        close(fd);
+    }
+
+    /* Remove the FIFO */
+    unlink(FIFO_NAME);
+
+    return 0;
+}

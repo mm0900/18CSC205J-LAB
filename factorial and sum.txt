@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    int n, pid, status;
+    int sum = 0;
+
+    printf("Enter a number: ");
+    scanf("%d", &n);
+
+    pid = fork();
+
+    if (pid < 0) {
+        printf("Error: Unable to create child process.\n");
+        exit(1);
+    }
+    else if (pid == 0) {  // Child process
+        int fact = 1;
+        for (int i = 2; i <= n; i++) {
+            fact *= i;
+        }
+        printf("Factorial of %d is %d\n", n, fact);
+        exit(0);
+    }
+    else {  // Parent process
+        while (n != 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        wait(&status);
+        printf("Sum of individual digits is %d\n", sum);
+    }
+    return 0;
+}

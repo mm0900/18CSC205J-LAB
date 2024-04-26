@@ -1,0 +1,44 @@
+
+process creation
+#include <stdio.h>
+#include<unistd.h>
+int main()
+{
+int pid,n,oddsum=0,evensum=0;
+printf("Enter the value of n : ",a); 
+scanf(“%d”,&n);
+pid=fork();
+if (pid==o){
+for int (i=1; i<n; i+=2)
+{odd sum +=i;}
+Printf("child:sum of odd number is Id", odd sums);}
+else if (Pid>o)
+ wait (NULL)
+for (int i=2;i<n;i+=2)
+{even sum += i}
+Printf (" Parent: The sum of even numbers is id",evensum);
+else
+printf ("forkfailed\n");
+return 0;
+}
+fork..........................
+#include <stdio.h>
+#include<unistd.h>
+int main()
+{
+int a=5,b=10,pid;
+printf("Before fork a=%d b=%d \n",a,b); 
+pid=fork();
+if(pid==0)
+{
+a=a+1; b=b+1;
+printf("In child a=%d b=%d \n",a,b);
+}
+else
+{
+sleep(1);
+a=a-1; b=b-1;
+printf("In Parent a=%d b=%d \n",a,b);
+}
+return 0;
+}

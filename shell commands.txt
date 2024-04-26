@@ -1,0 +1,48 @@
+output..........
+echo Enter value for n 
+read n
+sum=0
+i=1
+while [ $i –le $n ]
+do
+sum=$((sum+i))
+i=$((i+2))
+done
+echo Sum is $sum
+PERMISSION...............
+echo"enter the name of the file:"
+read filename
+if[!-e $filename]
+then
+echo"file not found"
+exit!
+fi
+if[!-x $filename]
+then
+chmod+x $filename
+echo"execute permission is added to file"
+else
+echo"file already has executed permission"
+fi
+program to check all files in present working directory........
+
+
+pattern="$1"
+if[-2 "$pattern"]
+then 
+echo"pattern is not available"
+exit1
+fi
+for file in T
+do if grep-q "$pattern" "$file"
+then
+echo"$file"
+
+done
+sub directories......................
+
+cd"$(pwd)"
+ls -d */ | sed 's#/##'
+$ chmod +x ex33
+
+$ ./ex33
